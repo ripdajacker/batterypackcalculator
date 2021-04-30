@@ -57,7 +57,7 @@
                 document.querySelector("#result").innerHTML = "Missing or invalid inputs";
             } else {
                 const totalVoltage = (series * voltage).toFixed(2);
-                const ampHours = ((capacity * series) / 1000).toFixed(2);
+                const ampHours = ((capacity / 1000) * parallel).toFixed(2);
                 document.querySelector("#result").innerHTML = series + "S" + parallel + "P  - " + totalVoltage + "V @ " + ampHours + " Ah  with a total cost of " + totalCost;
 
                 window.location.hash = JSON.stringify({ c: capacity, s: series, p: parallel, v: voltage, m: price });
