@@ -12,11 +12,17 @@
         }
 
         #result {
-            padding: 5px;
-            border: 1px solid grey;
-            background-color: rgb(238, 238, 238);
-            border-radius: 3px;
+            padding: 10px;
             margin-top: 10px;
+        }
+
+        #result table td:first-child {
+            text-align: right;
+        }
+
+        #result table td:last-child {
+            padding-left: 5px;
+
         }
     </style>
 </head>
@@ -44,7 +50,33 @@
 
             </fieldset>
         </form>
-        <div id="result"></div>
+        <div id="message"></div>
+        <div id="result">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>Notation:</td>
+                        <td id="notation"></td>
+                    </tr>
+                    <tr>
+                        <td>Total capacity:</td>
+                        <td id="capacity"></td>
+                    </tr>
+                    <tr>
+                        <td>Pack voltage:</td>
+                        <td id="voltage"></td>
+                    </tr>
+                    <tr>
+                        <td>Number of cells:</td>
+                        <td id="cellcount"></td>
+                    </tr>
+                    <tr>
+                        <td>Price:</td>
+                        <td id="price"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
     <script type="text/javascript">
         const param = window.location.hash;
@@ -58,11 +90,18 @@
             const totalCost = (price * series * parallel).toFixed(2);
 
             if ([capacity, voltage, series, parallel].filter(isNaN).length !== 0 || [capacity, voltage, series, parallel].indexOf(0) !== -1) {
-                document.querySelector("#result").innerHTML = "Missing or invalid inputs";
+                document.querySelector("#message").innerHTML = "Missing or invalid inputs";
             } else {
+                document.querySelector("#message").innerHTML = "";
+
                 const totalVoltage = (series * voltage).toFixed(2);
                 const ampHours = ((capacity / 1000) * parallel).toFixed(2);
-                document.querySelector("#result").innerHTML = series + "S" + parallel + "P  - " + totalVoltage + "V @ " + ampHours + " Ah  with a total cost of " + totalCost;
+
+                document.querySelector("#result #notation").textContent = series + "S" + parallel + "P";
+                document.querySelector("#result #voltage").textContent = totalVoltage + " V";
+                document.querySelector("#result #capacity").textContent = ampHours + " Ah";
+                document.querySelector("#result #cellcount").textContent = series * parallel;
+                document.querySelector("#result #price").textContent = totalCost;
 
                 window.location.hash = JSON.stringify({ c: capacity, s: series, p: parallel, v: voltage, m: price });
             }
@@ -75,7 +114,8 @@
             document.querySelector("input#parallel").value = calculation.p;
             document.querySelector("input#series").value = calculation.s;
             document.querySelector("input#price").value = calculation.m;
-            calculate();
         }
+
+        calculate();
     </script>
 </body>
