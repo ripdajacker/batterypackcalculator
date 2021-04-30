@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css"
+        integrity="sha384-Uu6IeWbM+gzNVXJcM9XV3SohHtmWE+3VGi496jvgX1jyvDTXfdK+rfZc8C1Aehk5" crossorigin="anonymous">
+    <style type="text/css">
+        #main-content {
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .greyed {
+            color: gray;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main-content">
+        <h1>Battery pack calculator</h1>
+        <form class="pure-form pure-form-stacked">
+            <fieldset>
+                <legend>Calculate capacity, voltage and price</legend>
+                <label for="capacity">Cell capacity (mAh)</label>
+                <input type="number" id="capacity" onchange="calculate();" />
+
+                <label for="price">Price per cell</label>
+                <input type="number" id="price" onchange="calculate();" value="0.0" />
+
+                <label for="voltage">Cell voltage (V)</label>
+                <input type="number" id="voltage" value="3.7" onchange="calculate();" />
+
+                <label for="series">Cells in series</label>
+                <input type="number" id="series" onchange="calculate();" />
+
+                <label for="parallel">Groups in parallel</label>
+                <input type="number" id="parallel" onchange="calculate();" />
+
+            </fieldset>
+        </form>
+        <div id="result"></div>
+    </div>
+    <script type="text/javascript">
+        const param = window.location.hash;
+
+        function calculate() {
+            const capacity = Number(document.querySelector("input#capacity").value);
+            const voltage = Number(document.querySelector("input#voltage").value);
+            const series = Number(document.querySelector("input#series").value);
+            const parallel = Number(document.querySelector("input#parallel").value);
+            const price = Number(document.querySelector("input#price").value);
+            const totalCost = (price * series * parallel).toFixed(2);
+
+            if ([capacity, voltage, series, parallel].filter(isNaN).length !== 0 || [capacity, voltage, series, parallel].indexOf(0) !== -1) {
+                document.querySelector("#result").innerHTML = "Missing or invalid inputs";
+            } else {
+                const totalVoltage = (series * voltage).toFixed(2);
+                const ampHours = ((capacity * series) / 1000).toFixed(2);
+                document.querySelector("#result").innerHTML = series + "S" + parallel + "P  - " + totalVoltage + "V @ " + ampHours + " Ah  with a total cost of " + totalCost;
+
+                window.location.hash = JSON.stringify({ c: capacity, s: series, p: parallel, v: voltage, m: price });
+            }
+        }
+
+        if (param != null && param.indexOf("{") === 1) {
+            const calculation = JSON.parse(decodeURIComponent(param.substr(1)));
+            document.querySelector("input#capacity").value = calculation.c;
+            document.querySelector("input#voltage").value = calculation.v;
+            document.querySelector("input#parallel").value = calculation.p;
+            document.querySelector("input#series").value = calculation.s;
+            document.querySelector("input#price").value = calculation.m;
+            calculate();
+        }
+    </script>
+</body>
