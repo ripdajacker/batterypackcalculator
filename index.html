@@ -3,12 +3,13 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Battery Pack Calculator</title>
-    <link rel="stylesheet" href="pure-min.css"
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css"
         integrity="sha384-Uu6IeWbM+gzNVXJcM9XV3SohHtmWE+3VGi496jvgX1jyvDTXfdK+rfZc8C1Aehk5" crossorigin="anonymous">
     <style type="text/css">
         #main-content {
             max-width: 800px;
             margin: auto;
+            padding: 10px;
         }
 
         #result {
@@ -22,7 +23,12 @@
 
         #result table td:last-child {
             padding-left: 5px;
+        }
 
+        #link {
+            background: #efefef;
+            border-radius: 5px;
+            padding: 5px;
         }
     </style>
 </head>
@@ -77,7 +83,11 @@
                 </tbody>
             </table>
         </div>
+        <div>
+            Link to this pack: <div id="link"></div>
+        </div>
     </div>
+   
     <script type="text/javascript">
         const param = window.location.hash;
 
@@ -104,6 +114,7 @@
                 document.querySelector("#result #price").textContent = totalCost;
 
                 window.location.hash = JSON.stringify({ c: capacity, s: series, p: parallel, v: voltage, m: price });
+                document.querySelector("#link").innerHTML = window.location.toString();
             }
         }
 
