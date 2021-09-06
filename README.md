@@ -8,4 +8,4 @@ Features:
 - Every calculation is "stored" in the URL and you can bookmark it for future reference
 - Written in plain old JavaScript with no dependencies
 
-The newest version is hosted in GitHub Pages: [https://ripdajacker.github.io/batterypackcalculator/](https://ripdajacker.github.io/batterypackcalculator/).
+The newest version is hosted in GitHub Pages: [https://that18650calc.site](https://that18650calc.site).
