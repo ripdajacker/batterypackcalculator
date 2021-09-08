@@ -1,4 +1,4 @@
-# Battery Pack Calculator
+# That 18650 Battery Pack Calculator
 
 A very simple calculator to help you calculate capacity of your lithium ion battery packs.
 
