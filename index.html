@@ -3,43 +3,46 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>That 18650 Calculator</title>
-    <link rel="stylesheet" href="pure-min.css"
-        integrity="sha384-Uu6IeWbM+gzNVXJcM9XV3SohHtmWE+3VGi496jvgX1jyvDTXfdK+rfZc8C1Aehk5" crossorigin="anonymous">
+    <link rel="stylesheet" href="pure-min.css" integrity="sha384-Uu6IeWbM+gzNVXJcM9XV3SohHtmWE+3VGi496jvgX1jyvDTXfdK+rfZc8C1Aehk5" crossorigin="anonymous">
     <style type="text/css">
+        #body {
+            background-color: white;
+        }
+        
         #main-content {
             max-width: 800px;
             margin: auto;
             padding: 10px;
         }
-
+        
         #result {
             padding: 10px;
             margin-top: 10px;
         }
-
+        
         #result table td:first-child {
             text-align: right;
         }
-
+        
         #result table td:last-child {
             padding-left: 5px;
         }
-
+        
         #link-holder {
             margin-top: 15px;
         }
-
+        
         #link {
             background: #efefef;
             border-radius: 5px;
-            padding: 5px;
+            padding: 7px;
         }
-
+        
         #footer {
             margin-top: 60px;
             color: #3d3d3d;
         }
-
+        
         #footer a {
             color: #3d3d3d;
         }
@@ -97,12 +100,13 @@
             </table>
         </div>
         <div id="link-holder">
-            Link to this pack: <div id="link"></div>
+            Link to this pack:
+            <div id="link"></div>
         </div>
-        <div id="footer">&copy;  2021 Jesenko Mehmedba&scaron;ić -
+        <div id="footer">&copy; 2021 Jesenko Mehmedba&scaron;ić -
             <a href="https://github.com/ripdajacker/batterypackcalculator">GitHub repo</a> </div>
     </div>
-   
+
     <script type="text/javascript">
         const param = window.location.hash;
 
@@ -128,7 +132,13 @@
                 document.querySelector("#result #cellcount").textContent = series * parallel;
                 document.querySelector("#result #price").textContent = totalCost;
 
-                window.location.hash = JSON.stringify({ c: capacity, s: series, p: parallel, v: voltage, m: price });
+                window.location.hash = JSON.stringify({
+                    c: capacity,
+                    s: series,
+                    p: parallel,
+                    v: voltage,
+                    m: price
+                });
                 document.querySelector("#link").innerHTML = window.location.toString();
             }
         }
