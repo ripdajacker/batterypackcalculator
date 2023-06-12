@@ -82,6 +82,9 @@
                     <tr>
                         <td>Total capacity:</td>
                         <td id="capacity"></td>
+                    </tr>                    <tr>
+                        <td>Total watt hours:</td>
+                        <td id="wattHours"></td>
                     </tr>
                     <tr>
                         <td>Pack voltage:</td>
@@ -116,6 +119,7 @@
       const capacity = Number(document.querySelector("input#capacity").value);
       const voltage = Number(document.querySelector("input#voltage").value);
       const series = Number(document.querySelector("input#series").value);
+
       const parallel = Number(document.querySelector("input#parallel").value);
       const price = Number(document.querySelector("input#price").value);
       const totalCost = (price * series * parallel).toFixed(2);
@@ -131,6 +135,7 @@
 
         const totalVoltage = (series * voltage).toFixed(2);
         const ampHours = ((capacity / 1000) * parallel).toFixed(2);
+        const wattHours = ampHours*totalVoltage;
 
         document.querySelector("#result #notation").textContent =
           series + "S" + parallel + "P";
@@ -138,6 +143,8 @@
           totalVoltage + " V";
         document.querySelector("#result #capacity").textContent =
           ampHours + " Ah";
+        document.querySelector("#result #wattHours").textContent =
+          wattHours + " Wh";
         document.querySelector("#result #cellcount").textContent =
           series * parallel;
         document.querySelector("#result #price").textContent = totalCost;
