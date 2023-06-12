@@ -1,113 +1,120 @@
 <!DOCTYPE html>
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>That 18650 Calculator</title>
-    <link rel="stylesheet" href="pure-min.css" integrity="sha384-Uu6IeWbM+gzNVXJcM9XV3SohHtmWE+3VGi496jvgX1jyvDTXfdK+rfZc8C1Aehk5" crossorigin="anonymous" />
-    <style type="text/css">
-        body {
-            background-color: white;
-        }
-        
-        #main-content {
-            max-width: 800px;
-            margin: auto;
-            padding: 10px;
-        }
-        
-        #result {
-            padding: 10px;
-            margin-top: 10px;
-        }
-        
-        #result table td:first-child {
-            text-align: right;
-        }
-        
-        #result table td:last-child {
-            padding-left: 5px;
-        }
-        
-        #link-holder {
-            margin-top: 15px;
-        }
-        
-        #link {
-            background: #efefef;
-            border-radius: 5px;
-            padding: 7px;
-        }
-        
-        #footer {
-            margin-top: 60px;
-            color: #3d3d3d;
-        }
-        
-        #footer a {
-            color: #3d3d3d;
-        }
-    </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>That 18650 Calculator</title>
+  <link
+    rel="stylesheet"
+    href="pure-min.css"
+    integrity="sha384-Uu6IeWbM+gzNVXJcM9XV3SohHtmWE+3VGi496jvgX1jyvDTXfdK+rfZc8C1Aehk5"
+    crossorigin="anonymous"
+  />
+  <style type="text/css">
+    body {
+      background-color: white;
+    }
+
+    #main-content {
+      max-width: 800px;
+      margin: auto;
+      padding: 10px;
+    }
+
+    #result {
+      padding: 10px;
+      margin-top: 10px;
+    }
+
+    #result table td:first-child {
+      text-align: right;
+    }
+
+    #result table td:last-child {
+      padding-left: 5px;
+    }
+
+    #link-holder {
+      margin-top: 15px;
+    }
+
+    #link {
+      background: #efefef;
+      border-radius: 5px;
+      padding: 7px;
+    }
+
+    #footer {
+      margin-top: 60px;
+      color: #3d3d3d;
+    }
+
+    #footer a {
+      color: #3d3d3d;
+    }
+  </style>
 </head>
 
 <body>
-    <div id="main-content">
-        <h1>Battery Pack Calculator</h1>
-        <form class="pure-form pure-form-stacked">
-            <fieldset>
-                <legend>Calculate capacity, voltage and price</legend>
-                <label for="capacity">Cell capacity (mAh)</label>
-                <input type="number" id="capacity" onchange="calculate();" />
+  <div id="main-content">
+    <h1>Battery Pack Calculator</h1>
+    <form class="pure-form pure-form-stacked">
+      <fieldset>
+        <legend>Calculate capacity, voltage and price</legend>
+        <label for="capacity">Cell capacity (mAh)</label>
+        <input type="number" id="capacity" onchange="calculate();" />
 
-                <label for="price">Price per cell</label>
-                <input type="number" id="price" onchange="calculate();" value="0.0" />
+        <label for="price">Price per cell</label>
+        <input type="number" id="price" onchange="calculate();" value="0.0" />
 
-                <label for="voltage">Cell voltage (V)</label>
-                <input type="number" id="voltage" value="3.7" onchange="calculate();" />
+        <label for="voltage">Cell voltage (V)</label>
+        <input type="number" id="voltage" value="3.7" onchange="calculate();" />
 
-                <label for="series">Cells in series</label>
-                <input type="number" id="series" onchange="calculate();" />
+        <label for="series">Cells in series</label>
+        <input type="number" id="series" onchange="calculate();" />
 
-                <label for="parallel">Groups in parallel</label>
-                <input type="number" id="parallel" onchange="calculate();" />
-            </fieldset>
-        </form>
-        <div id="message"></div>
-        <div id="result">
-            <table>
-                <tbody>
-                    <tr>
-                        <td>Notation:</td>
-                        <td id="notation"></td>
-                    </tr>
-                    <tr>
-                        <td>Total capacity:</td>
-                        <td id="capacity"></td>
-                    </tr>                    <tr>
-                        <td>Total watt hours:</td>
-                        <td id="wattHours"></td>
-                    </tr>
-                    <tr>
-                        <td>Pack voltage:</td>
-                        <td id="voltage"></td>
-                    </tr>
-                    <tr>
-                        <td>Number of cells:</td>
-                        <td id="cellcount"></td>
-                    </tr>
-                    <tr>
-                        <td>Price:</td>
-                        <td id="price"></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div id="link-holder">
-            Link to this pack:
-            <div id="link"></div>
-        </div>
-        <div id="footer">
-            &copy; 2021 Jesenko Mehmedba&scaron;ić -
-            <a href="https://github.com/ripdajacker/batterypackcalculator">GitHub repo</a
+        <label for="parallel">Groups in parallel</label>
+        <input type="number" id="parallel" onchange="calculate();" />
+      </fieldset>
+    </form>
+    <div id="message"></div>
+    <div id="result">
+      <table>
+        <tbody>
+          <tr>
+            <td>Notation:</td>
+            <td id="notation"></td>
+          </tr>
+          <tr>
+            <td>Total capacity:</td>
+            <td id="capacity"></td>
+          </tr>
+          <tr>
+            <td>Total watt hours:</td>
+            <td id="wattHours"></td>
+          </tr>
+          <tr>
+            <td>Pack voltage:</td>
+            <td id="voltage"></td>
+          </tr>
+          <tr>
+            <td>Number of cells:</td>
+            <td id="cellcount"></td>
+          </tr>
+          <tr>
+            <td>Price:</td>
+            <td id="price"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="link-holder">
+      Link to this pack:
+      <div id="link"></div>
+    </div>
+    <div id="footer">
+      &copy; 2021 Jesenko Mehmedba&scaron;ić -
+      <a href="https://github.com/ripdajacker/batterypackcalculator"
+        >GitHub repo</a
       >
     </div>
   </div>
@@ -135,7 +142,7 @@
 
         const totalVoltage = (series * voltage).toFixed(2);
         const ampHours = ((capacity / 1000) * parallel).toFixed(2);
-        const wattHours = ampHours*totalVoltage;
+        const wattHours = ampHours * totalVoltage;
 
         document.querySelector("#result #notation").textContent =
           series + "S" + parallel + "P";
@@ -149,19 +156,27 @@
           series * parallel;
         document.querySelector("#result #price").textContent = totalCost;
 
-        window.location.hash = JSON.stringify({
+        const hash = JSON.stringify({
           c: capacity,
           s: series,
           p: parallel,
           v: voltage,
           m: price,
         });
+        window.location.hash = hash.replace("{", "(").replace("}", ")");
         document.querySelector("#link").innerHTML = window.location.toString();
       }
     }
 
-    if (param != null && param.indexOf("{") === 1) {
-      const calculation = JSON.parse(decodeURIComponent(param.substr(1)));
+    if (
+      param != null &&
+      (param.indexOf("{") === 1 || param.indexOf("(") === 1)
+    ) {
+      const maybeJson = decodeURIComponent(param.substr(1))
+        .replace("(", "{")
+        .replace(")", "}");
+
+      const calculation = JSON.parse(maybeJson);
       document.querySelector("input#capacity").value = calculation.c;
       document.querySelector("input#voltage").value = calculation.v;
       document.querySelector("input#parallel").value = calculation.p;
