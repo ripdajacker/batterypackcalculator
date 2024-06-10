@@ -60,6 +60,10 @@
       #footer a {
         color: #3d3d3d;
       }
+
+      #link {
+        display: block;
+      }
     </style>
 </head>
 
@@ -69,12 +73,9 @@
     <div>
         <form class="pure-form pure-form-stacked">
             <fieldset>
-                <legend>Calculate capacity, voltage and price</legend>
+                <legend>Calculate capacity and voltage</legend>
                 <label for="capacity">Cell capacity (mAh)</label>
                 <input type="number" id="capacity" onchange="calculate();"/>
-
-                <label for="price">Price per cell</label>
-                <input type="number" id="price" onchange="calculate();" value="0.0"/>
 
                 <label for="voltage">Cell voltage (V)</label>
                 <input type="number" id="voltage" value="3.7" onchange="calculate();"/>
@@ -94,37 +95,33 @@
             <tbody>
             <tr>
                 <td>Notation:</td>
-                <td id="notation"></td>
+                <td class="notation"></td>
             </tr>
             <tr>
                 <td>Total capacity:</td>
-                <td id="capacity"></td>
+                <td class="capacity"></td>
             </tr>
             <tr>
-                <td>Total watt hours:</td>
-                <td id="wattHours"></td>
+                <td>Total Watt hours:</td>
+                <td class="wattHours"></td>
             </tr>
             <tr>
                 <td>Pack voltage:</td>
-                <td id="voltage"></td>
+                <td class="voltage"></td>
             </tr>
             <tr>
                 <td>Number of cells:</td>
-                <td id="cellcount"></td>
-            </tr>
-            <tr>
-                <td>Price:</td>
-                <td id="price"></td>
+                <td class="cellcount"></td>
             </tr>
             </tbody>
         </table>
     </div>
     <div id="link-holder">
         Link to this pack:
-        <div id="link"></div>
+        <a href="/" id="link"></a>
     </div>
-<br>
-<br>
+    <br>
+    <br>
     <div class="voltage-reference">
         <h3>Reference for standard pack voltages</h3>
         <table class="pure-table pure-table-striped">
@@ -158,14 +155,17 @@
             <tr><td>LiFePo4</td><td>13</td><td>32.5</td><td>47.5</td> <td>41.6</td><td>-</td></tr>
             </tbody>
         </table>
-            <h4>Warnings and notes</h4>
-        <p>The minimum voltages listed are a rough estimate of the <i>absolute minimum</i> voltage you should ever discharge your cells to.
+        <h4>Warnings and notes</h4>
+        <p>The minimum voltages listed are a rough estimate of the <i>absolute minimum</i> voltage
+            you should ever discharge your cells to.
             Be sure to <b>always</b> check the cell's datasheet before fiddling.</p>
         <p>All consumer battery packs will have a BMS that has a cutoff somewhere above 2.5v.
-            Due to the non-linear discharge curves you get very little energy going from 3.0v -> 2.5v, most BMSs will cutoff somewhere between 2.8v and 3v.
+            Due to the non-linear discharge curves you get very little energy going from 3.0v ->
+            2.5v, most BMSs will have a cutoff somewhere between 2.8v and 3v.
             This of course varies between chemistry types.</p>
         <p>LiPo cells come in a HV variant that goes up to 4.35 max.</p>
-        <p>Cells that are below 2.5v may experience physical changes to their chemistry and should be discarded according to local laws.</p>
+        <p>Cells that are below 2.5v may experience physical changes to their chemistry and should
+            be discarded according to local laws.</p>
     </div>
     <div id="footer">
         &copy; 2021 Jesenko Mehmedba&scaron;ić -
@@ -182,10 +182,7 @@
         const capacity = Number(document.querySelector("input#capacity").value);
         const voltage = Number(document.querySelector("input#voltage").value);
         const series = Number(document.querySelector("input#series").value);
-
         const parallel = Number(document.querySelector("input#parallel").value);
-        const price = Number(document.querySelector("input#price").value);
-        const totalCost = (price * series * parallel).toFixed(2);
 
         if (
             [capacity, voltage, series, parallel].filter(isNaN).length !== 0 ||
@@ -200,27 +197,29 @@
             const ampHours = ((capacity / 1000) * parallel).toFixed(2);
             const wattHours = (ampHours * totalVoltage).toFixed(2);
 
-            document.querySelector("#result #notation").textContent =
+            document.querySelector("#result td.notation").textContent =
                 series + "S" + parallel + "P";
-            document.querySelector("#result #voltage").textContent =
+            document.querySelector("#result td.voltage").textContent =
                 totalVoltage + " V";
-            document.querySelector("#result #capacity").textContent =
+            document.querySelector("#result td.capacity").textContent =
                 ampHours + " Ah";
-            document.querySelector("#result #wattHours").textContent =
+            document.querySelector("#result td.wattHours").textContent =
                 wattHours + " Wh";
-            document.querySelector("#result #cellcount").textContent =
+            document.querySelector("#result td.cellcount").textContent =
                 series * parallel;
-            document.querySelector("#result #price").textContent = totalCost;
 
             const hash = JSON.stringify({
                 c: capacity,
                 s: series,
                 p: parallel,
                 v: voltage,
-                m: price,
             });
+
             window.location.hash = hash.replace("{", "(").replace("}", ")");
-            document.querySelector("#link").innerHTML = window.location.toString();
+
+            let linkElement = document.querySelector("#link");
+            linkElement.setAttribute("href", window.location.toString());
+            linkElement.innerText = window.location.toString();
         }
     }
 
@@ -237,7 +236,6 @@
         document.querySelector("input#voltage").value = calculation.v;
         document.querySelector("input#parallel").value = calculation.p;
         document.querySelector("input#series").value = calculation.s;
-        document.querySelector("input#price").value = calculation.m;
     }
 
     calculate();
