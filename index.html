@@ -1,189 +1,249 @@
 <!DOCTYPE html>
 
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>That 18650 Calculator</title>
-  <link
-    rel="stylesheet"
-    href="pure-min.css"
-    integrity="sha384-Uu6IeWbM+gzNVXJcM9XV3SohHtmWE+3VGi496jvgX1jyvDTXfdK+rfZc8C1Aehk5"
-    crossorigin="anonymous"
-  />
-  <style type="text/css">
-    body {
-      background-color: white;
-    }
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>That 18650 Calculator</title>
+    <link
+        rel="stylesheet"
+        href="pure-min.css"
+        integrity="sha384-Uu6IeWbM+gzNVXJcM9XV3SohHtmWE+3VGi496jvgX1jyvDTXfdK+rfZc8C1Aehk5"
+        crossorigin="anonymous"
+    />
+    <style>
+      body {
+        background-color: white;
+      }
 
-    #main-content {
-      max-width: 800px;
-      margin: auto;
-      padding: 10px;
-    }
+      #main-content {
+        max-width: 800px;
+        margin: auto;
+        padding: 10px;
+      }
 
-    #result {
-      padding: 10px;
-      margin-top: 10px;
-    }
+      #result {
+        padding: 10px;
+        margin-top: 10px;
+      }
 
-    #result table td:first-child {
-      text-align: right;
-    }
+      .voltage-reference table td {
+        text-align: center;
+      }
 
-    #result table td:last-child {
-      padding-left: 5px;
-    }
+      .voltage-reference table tr:hover td {
+        background: #d9d9d9;
+        text-shadow: 0 0 1px #858585;
+      }
 
-    #link-holder {
-      margin-top: 15px;
-    }
+      #result table td:first-child {
+        text-align: right;
+      }
 
-    #link {
-      background: #efefef;
-      border-radius: 5px;
-      padding: 7px;
-    }
+      #result table td:last-child {
+        padding-left: 5px;
+      }
 
-    #footer {
-      margin-top: 60px;
-      color: #3d3d3d;
-    }
+      #link-holder {
+        margin-top: 15px;
+      }
 
-    #footer a {
-      color: #3d3d3d;
-    }
-  </style>
+      #link {
+        background: #efefef;
+        border-radius: 5px;
+        padding: 7px;
+      }
+
+      #footer {
+        margin-top: 60px;
+        color: #3d3d3d;
+      }
+
+      #footer a {
+        color: #3d3d3d;
+      }
+    </style>
 </head>
 
 <body>
-  <div id="main-content">
+<div id="main-content">
     <h1>Battery Pack Calculator</h1>
-    <form class="pure-form pure-form-stacked">
-      <fieldset>
-        <legend>Calculate capacity, voltage and price</legend>
-        <label for="capacity">Cell capacity (mAh)</label>
-        <input type="number" id="capacity" onchange="calculate();" />
+    <div>
+        <form class="pure-form pure-form-stacked">
+            <fieldset>
+                <legend>Calculate capacity, voltage and price</legend>
+                <label for="capacity">Cell capacity (mAh)</label>
+                <input type="number" id="capacity" onchange="calculate();"/>
 
-        <label for="price">Price per cell</label>
-        <input type="number" id="price" onchange="calculate();" value="0.0" />
+                <label for="price">Price per cell</label>
+                <input type="number" id="price" onchange="calculate();" value="0.0"/>
 
-        <label for="voltage">Cell voltage (V)</label>
-        <input type="number" id="voltage" value="3.7" onchange="calculate();" />
+                <label for="voltage">Cell voltage (V)</label>
+                <input type="number" id="voltage" value="3.7" onchange="calculate();"/>
 
-        <label for="series">Cells in series</label>
-        <input type="number" id="series" onchange="calculate();" />
+                <label for="series">Cells in series</label>
+                <input type="number" id="series" onchange="calculate();"/>
 
-        <label for="parallel">Groups in parallel</label>
-        <input type="number" id="parallel" onchange="calculate();" />
-      </fieldset>
-    </form>
+                <label for="parallel">Groups in parallel</label>
+                <input type="number" id="parallel" onchange="calculate();"/>
+            </fieldset>
+        </form>
+    </div>
+
     <div id="message"></div>
     <div id="result">
-      <table>
-        <tbody>
-          <tr>
-            <td>Notation:</td>
-            <td id="notation"></td>
-          </tr>
-          <tr>
-            <td>Total capacity:</td>
-            <td id="capacity"></td>
-          </tr>
-          <tr>
-            <td>Total watt hours:</td>
-            <td id="wattHours"></td>
-          </tr>
-          <tr>
-            <td>Pack voltage:</td>
-            <td id="voltage"></td>
-          </tr>
-          <tr>
-            <td>Number of cells:</td>
-            <td id="cellcount"></td>
-          </tr>
-          <tr>
-            <td>Price:</td>
-            <td id="price"></td>
-          </tr>
-        </tbody>
-      </table>
+        <table>
+            <tbody>
+            <tr>
+                <td>Notation:</td>
+                <td id="notation"></td>
+            </tr>
+            <tr>
+                <td>Total capacity:</td>
+                <td id="capacity"></td>
+            </tr>
+            <tr>
+                <td>Total watt hours:</td>
+                <td id="wattHours"></td>
+            </tr>
+            <tr>
+                <td>Pack voltage:</td>
+                <td id="voltage"></td>
+            </tr>
+            <tr>
+                <td>Number of cells:</td>
+                <td id="cellcount"></td>
+            </tr>
+            <tr>
+                <td>Price:</td>
+                <td id="price"></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
     <div id="link-holder">
-      Link to this pack:
-      <div id="link"></div>
+        Link to this pack:
+        <div id="link"></div>
+    </div>
+<br>
+<br>
+    <div class="voltage-reference">
+        <h3>Reference for standard pack voltages</h3>
+        <table class="pure-table pure-table-striped">
+            <thead>
+            <tr>
+                <th>Battery type</th>
+                <th>Series</th>
+                <th>Min</th>
+                <th>Max</th>
+                <th>Nominal</th>
+                <th>Typical use</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr><td>Li ion</td><td>1</td><td>2.4</td><td>4.2</td><td>3.7</td><td>Toys, small speakers, cameras, headphones, game controllers</td></tr>
+            <tr><td>Li ion</td><td>2</td><td>4.8</td><td>8.4</td><td>7.4</td><td>Digital cameras</td></tr>
+            <tr><td>Li ion</td><td>3</td><td>7.2</td><td>12.6</td><td>11.1</td><td>Compact power tools, speakers</td></tr>
+            <tr><td>Li ion</td><td>5</td><td>12</td><td>21</td><td>18.5</td><td>Power tools (sometimes marketed as 20v), vacuum cleaners</td></tr>
+            <tr><td>Li ion</td><td>6</td><td>14.4</td><td>25.2</td><td>22.2</td><td>Vacuum cleaners</td></tr>
+            <tr><td>Li ion</td><td>7</td><td>16.8</td><td>29.4</td><td>25.9</td><td>Older Panasonic ebikes</td></tr>
+            <tr><td>Li ion</td><td>10</td><td>24</td><td>42</td><td>37</td><td>36v ebikes (almost all European), lawn movers, expensive power tools </td></tr>
+            <tr><td>Li ion</td><td>13</td><td>31.2</td><td>54.6</td><td>48.1</td><td>48v ebikes</td></tr>
+            <tr><td>Li ion</td><td>13</td><td>31.2</td><td>54.6</td><td>48.1</td><td>48v ebikes</td></tr>
+            <tr><td colspan="6"></td></tr>
+            <tr><td>LiFePo4</td><td>1</td> <td>2.5</td> <td>3.65 </td><td>3.2</td><td>-</td></tr>
+            <tr><td>LiFePo4</td><td>2</td> <td>5</td>   <td>7.3 </td> <td>6.4</td><td>-</td></tr>
+            <tr><td>LiFePo4</td><td>3</td> <td>7.5</td> <td>11</td> <td>9.6</td><td>-</td></tr>
+            <tr><td>LiFePo4</td><td>5</td> <td>12.5</td><td>18.3 </td><td>16</td><td>-</td></tr>
+            <tr><td>LiFePo4</td><td>6</td> <td>15</td>  <td>21.9</td>  <td>19.2</td><td>-</td></tr>
+            <tr><td>LiFePo4</td><td>7</td> <td>17.5</td><td>25.6</td> <td>22.4</td><td>-</td></tr>
+            <tr><td>LiFePo4</td><td>10</td><td>25</td>  <td>36.5</td>  <td>32</td><td>-</td></tr>
+            <tr><td>LiFePo4</td><td>13</td><td>32.5</td><td>47.5</td> <td>41.6</td><td>-</td></tr>
+            </tbody>
+        </table>
+        <p>
+            <b>Notes:</b>
+        <ul>
+            <li>LiFePo4 cells are fairly uncommon in consumer gear.</li>
+            <li>LiPo cells come in a HV variant which has a max voltage of 4.35.</li>
+            <li>Some models have slightly higher max or lower min voltages than the above, always
+                verify with the
+                datasheet of the cell.
+            </li>
+        </ul>
+        </p>
     </div>
     <div id="footer">
-      &copy; 2021 Jesenko Mehmedba&scaron;ić -
-      <a href="https://github.com/ripdajacker/batterypackcalculator"
+        &copy; 2021 Jesenko Mehmedba&scaron;ić -
+        <a href="https://github.com/ripdajacker/batterypackcalculator"
         >GitHub repo</a
-      >
+        >
     </div>
-  </div>
+</div>
 
-  <script type="text/javascript">
+<script type="text/javascript">
     const param = window.location.hash;
 
     function calculate() {
-      const capacity = Number(document.querySelector("input#capacity").value);
-      const voltage = Number(document.querySelector("input#voltage").value);
-      const series = Number(document.querySelector("input#series").value);
+        const capacity = Number(document.querySelector("input#capacity").value);
+        const voltage = Number(document.querySelector("input#voltage").value);
+        const series = Number(document.querySelector("input#series").value);
 
-      const parallel = Number(document.querySelector("input#parallel").value);
-      const price = Number(document.querySelector("input#price").value);
-      const totalCost = (price * series * parallel).toFixed(2);
+        const parallel = Number(document.querySelector("input#parallel").value);
+        const price = Number(document.querySelector("input#price").value);
+        const totalCost = (price * series * parallel).toFixed(2);
 
-      if (
-        [capacity, voltage, series, parallel].filter(isNaN).length !== 0 ||
-        [capacity, voltage, series, parallel].indexOf(0) !== -1
-      ) {
-        document.querySelector("#message").innerHTML =
-          "Missing or invalid inputs";
-      } else {
-        document.querySelector("#message").innerHTML = "";
+        if (
+            [capacity, voltage, series, parallel].filter(isNaN).length !== 0 ||
+            [capacity, voltage, series, parallel].indexOf(0) !== -1
+        ) {
+            document.querySelector("#message").innerHTML =
+                "Missing or invalid inputs";
+        } else {
+            document.querySelector("#message").innerHTML = "";
 
-        const totalVoltage = (series * voltage).toFixed(2);
-        const ampHours = ((capacity / 1000) * parallel).toFixed(2);
-        const wattHours = ampHours * totalVoltage;
+            const totalVoltage = (series * voltage).toFixed(2);
+            const ampHours = ((capacity / 1000) * parallel).toFixed(2);
+            const wattHours = ampHours * totalVoltage;
 
-        document.querySelector("#result #notation").textContent =
-          series + "S" + parallel + "P";
-        document.querySelector("#result #voltage").textContent =
-          totalVoltage + " V";
-        document.querySelector("#result #capacity").textContent =
-          ampHours + " Ah";
-        document.querySelector("#result #wattHours").textContent =
-          wattHours + " Wh";
-        document.querySelector("#result #cellcount").textContent =
-          series * parallel;
-        document.querySelector("#result #price").textContent = totalCost;
+            document.querySelector("#result #notation").textContent =
+                series + "S" + parallel + "P";
+            document.querySelector("#result #voltage").textContent =
+                totalVoltage + " V";
+            document.querySelector("#result #capacity").textContent =
+                ampHours + " Ah";
+            document.querySelector("#result #wattHours").textContent =
+                wattHours + " Wh";
+            document.querySelector("#result #cellcount").textContent =
+                series * parallel;
+            document.querySelector("#result #price").textContent = totalCost;
 
-        const hash = JSON.stringify({
-          c: capacity,
-          s: series,
-          p: parallel,
-          v: voltage,
-          m: price,
-        });
-        window.location.hash = hash.replace("{", "(").replace("}", ")");
-        document.querySelector("#link").innerHTML = window.location.toString();
-      }
+            const hash = JSON.stringify({
+                c: capacity,
+                s: series,
+                p: parallel,
+                v: voltage,
+                m: price,
+            });
+            window.location.hash = hash.replace("{", "(").replace("}", ")");
+            document.querySelector("#link").innerHTML = window.location.toString();
+        }
     }
 
     if (
-      param != null &&
-      (param.indexOf("{") === 1 || param.indexOf("(") === 1)
+        param != null &&
+        (param.indexOf("{") === 1 || param.indexOf("(") === 1)
     ) {
-      const maybeJson = decodeURIComponent(param.substr(1))
+        const maybeJson = decodeURIComponent(param.substr(1))
         .replace("(", "{")
         .replace(")", "}");
 
-      const calculation = JSON.parse(maybeJson);
-      document.querySelector("input#capacity").value = calculation.c;
-      document.querySelector("input#voltage").value = calculation.v;
-      document.querySelector("input#parallel").value = calculation.p;
-      document.querySelector("input#series").value = calculation.s;
-      document.querySelector("input#price").value = calculation.m;
+        const calculation = JSON.parse(maybeJson);
+        document.querySelector("input#capacity").value = calculation.c;
+        document.querySelector("input#voltage").value = calculation.v;
+        document.querySelector("input#parallel").value = calculation.p;
+        document.querySelector("input#series").value = calculation.s;
+        document.querySelector("input#price").value = calculation.m;
     }
 
     calculate();
-  </script>
+</script>
 </body>
