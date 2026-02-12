@@ -267,6 +267,7 @@
             document.querySelector("#message").innerHTML = "";
 
             const totalVoltage = (series * voltage).toFixed(2);
+            const totalVoltage = (series * voltage).toFixed(2);
             const ampHours = ((capacity / 1000) * parallel).toFixed(2);
             const wattHours = (ampHours * totalVoltage).toFixed(2);
 
@@ -325,9 +326,8 @@
             const voltageDecimal = Number("0." + decodeLeb128(buffer, state));
 
             const voltage = voltageVal + voltageDecimal;
-
             document.querySelector("input#capacity").value = capacity;
-            document.querySelector("input#voltage").value = voltage;
+            document.querySelector("input#voltage").value = voltage.toFixed(2);
             document.querySelector("input#parallel").value = parallel;
             document.querySelector("input#series").value = series;
 
