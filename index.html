@@ -3,12 +3,26 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>That 18650 Calculator</title>
-    <link
-            rel="stylesheet"
-            href="pure-min.css"
-            integrity="sha384-Uu6IeWbM+gzNVXJcM9XV3SohHtmWE+3VGi496jvgX1jyvDTXfdK+rfZc8C1Aehk5"
-            crossorigin="anonymous"
-    />
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="apple-touch-icon" sizes="192x192" href="/favicon-192x192.png">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="64x64" href="/favicon-64x64.png">
+    <link rel="icon" type="image/png" sizes="128x128" href="/favicon-128x128.png">
+    <link rel="icon" type="image/png" sizes="256x256" href="/favicon-256x256.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512x512.png">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+    <link rel="manifest" href="/webmanifest.json">
+
+    <link rel="stylesheet"
+          href="pure-min.css"
+          integrity="sha384-Uu6IeWbM+gzNVXJcM9XV3SohHtmWE+3VGi496jvgX1jyvDTXfdK+rfZc8C1Aehk5"
+          crossorigin="anonymous">
+
     <style>
         body {
             background-color: white;
@@ -123,6 +137,14 @@
     <div id="link-holder">
         Link to this pack:
         <a href="/" id="link"></a>
+    </div>
+    <div id="install-prompt"
+         style="display: none; padding: 10px; background: #f0f0f0; border-radius: 4px; margin: 10px 0;">
+        <strong>Install the app!</strong> for offline use and faster calculations.
+        <button class="pure-button" id="install-button"
+                style="background: #141414; color: white; border-radius: 4px; margin-top: 10px; padding: 5px 10px;">
+            Install
+        </button>
     </div>
     <br>
     <br>
@@ -335,5 +357,16 @@
 
 
     calculate();
+
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/sw.js')
+                .then(() => {
+                    console.log('ServiceWorker registration successful');
+                })
+                .catch((err) => {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+        });
+    }
 </script>
-</body>
