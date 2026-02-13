@@ -1,4 +1,4 @@
-const CACHE_NAME = 'battery-calculator-v1';
+const CACHE_NAME = 'battery-calculator-v1.0.1';
 const ASSETS_URLS = [
     '/',
     '/index.html',
@@ -13,8 +13,6 @@ const ASSETS_URLS = [
     '/favicon-32x32.png',
     '/favicon-16x16.png'
 ];
-
-const version = "1.0.0"
 
 // Install service worker
 self.addEventListener('install', (event) => {
