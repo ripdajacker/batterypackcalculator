@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-
+<html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>That 18650 Calculator</title>
@@ -96,7 +96,7 @@
                 <input type="number" id="capacity" onchange="calculate();"/>
 
                 <label for="voltage">Cell voltage (V)</label>
-                <input type="number" id="voltage" value="3.7" onchange="calculate();"/>
+                <input type="text" id="voltage" inputmode="decimal" value="3.70" onchange="calculate();"/>
 
                 <label for="series">Cells in series</label>
                 <input type="number" id="series" onchange="calculate();"/>
@@ -274,10 +274,13 @@
     const param = window.location.hash;
 
     function calculate() {
+        console.log(document.getElementById("voltage"), document.getElementById("voltage").value)
+
         const capacity = Number(document.querySelector("input#capacity").value);
         const voltage = Number(document.querySelector("input#voltage").value);
         const series = Number(document.querySelector("input#series").value);
         const parallel = Number(document.querySelector("input#parallel").value);
+
 
         if (
             [capacity, voltage, series, parallel].filter(isNaN).length !== 0 ||
@@ -292,17 +295,11 @@
             const ampHours = ((capacity / 1000) * parallel).toFixed(2);
             const wattHours = (ampHours * totalVoltage).toFixed(2);
 
-            document.querySelector("#result td.notation").textContent =
-                series + "S" + parallel + "P";
-            document.querySelector("#result td.voltage").textContent =
-                totalVoltage + " V";
-            document.querySelector("#result td.capacity").textContent =
-                ampHours + " Ah";
-            document.querySelector("#result td.wattHours").textContent =
-                wattHours + " Wh";
-            document.querySelector("#result td.cellcount").textContent =
-                series * parallel;
-
+            document.querySelector("#result td.notation").textContent = series + "S" + parallel + "P";
+            document.querySelector("#result td.voltage").textContent = totalVoltage + " V";
+            document.querySelector("#result td.capacity").textContent = ampHours + " Ah";
+            document.querySelector("#result td.wattHours").textContent = wattHours + " Wh";
+            document.querySelector("#result td.cellcount").textContent = String(series * parallel);
 
             const encoded = [];
             encodeLeb128(encoded, capacity)
@@ -323,7 +320,7 @@
         }
     }
 
-    if (param != null) {
+    if (param != null && param.trim().length > 0) {
         if (param.indexOf("{") === 1 || param.indexOf("(") === 1) {
             const maybeJson = decodeURIComponent(param.substring(1))
                 .replace("(", "{")
@@ -356,9 +353,7 @@
     }
 
 
-    calculate();
-
-    if ('serviceWorker' in navigator) {
+    if ('serviceWorker' in navigator && false) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('/sw.js')
                 .then(() => {
@@ -369,4 +364,8 @@
                 });
         });
     }
+
+    document.addEventListener("DOMContentLoaded", () => calculate());
 </script>
+</body>
+</html>

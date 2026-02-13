@@ -14,6 +14,8 @@ const ASSETS_URLS = [
     '/favicon-16x16.png'
 ];
 
+const version = "1.0.0"
+
 // Install service worker
 self.addEventListener('install', (event) => {
     event.waitUntil(
@@ -37,26 +39,29 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
     event.respondWith(
         caches.match(event.request).then((response) => {
+
+            console.log("XX", event.request.url, response ? 'cache' : 'network');
+
             if (response != null) {
                 return response;
             }
-            
+
             // Clone the request
             const fetchRequest = event.request.clone();
-            
+
             return fetch(fetchRequest).then((response) => {
                 // Check if we got a response and can clone it
                 if (!response || response.status !== 200 || response.type !== 'basic') {
                     return response;
                 }
-                
+
                 // Clone the response
                 const responseToCache = response.clone();
-                
+
                 caches.open(CACHE_NAME).then((cache) => {
                     cache.put(event.request, responseToCache);
                 });
-                
+
                 return response;
             });
         })
